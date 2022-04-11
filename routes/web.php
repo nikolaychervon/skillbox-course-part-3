@@ -19,6 +19,10 @@ Route::get('/about', [AboutController::class, 'index'])
 Route::get('/contacts', [ContactController::class, 'create'])
     ->name('contacts');
 
+/** Создать обращение */
+Route::post('/contacts', [ContactController::class, 'store'])
+    ->name('store-contact');
+
 
 /** Работа со статьями */
 Route::prefix('/articles')->controller(ArticleController::class)->group(function () {
