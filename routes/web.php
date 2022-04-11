@@ -31,6 +31,10 @@ Route::prefix('/articles')->controller(ArticleController::class)->group(function
     Route::get('/create', 'create')
         ->name('create-article');
 
+    /** Создать статью */
+    Route::post('/', 'store')
+        ->name('store-article');
+
     /** Детальная страница статьи */
     Route::get('/{slug}', 'show')
         ->name('show-article');

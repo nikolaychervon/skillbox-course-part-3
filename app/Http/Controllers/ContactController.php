@@ -53,6 +53,7 @@ class ContactController extends Controller
             new ContactDTO($request)
         );
 
+        session()->flash('message', __('crud.created.contact'));
         return back();
     }
 }

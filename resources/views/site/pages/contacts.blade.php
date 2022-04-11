@@ -18,16 +18,23 @@
                     </ul>
                 </div>
             @endif
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
             <form action="{{ route('store-contact') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Укажите email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Укажите email"
+                           value="{{ old('email') }}">
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="message">Сообщение</label>
-                    <textarea class="form-control" id="message" name="message" placeholder="Сообщение"></textarea>
+                    <textarea class="form-control" id="message" name="message"
+                              placeholder="Сообщение">{{ old('message') }}</textarea>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Отправить обращение</button>
