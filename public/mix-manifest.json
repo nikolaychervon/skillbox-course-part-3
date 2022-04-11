@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/libs/bootstrap.bundle.min.js": "/js/libs/bootstrap.bundle.min.js",
+    "/js/libs/popper.min.js": "/js/libs/popper.min.js",
+    "/js/libs/bootstrap.min.js": "/js/libs/bootstrap.min.js",
+    "/css/libs/bootstrap.min.css": "/css/libs/bootstrap.min.css",
+    "/css/app.css": "/css/app.css"
+}

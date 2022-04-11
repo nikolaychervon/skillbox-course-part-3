@@ -36,9 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-scroller .nav {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
     padding-bottom: 1rem;
     margin-top: -1px;
@@ -60,7 +58,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .flex-auto {
-    -ms-flex: 0 0 auto;
     flex: 0 0 auto;
 }
 
@@ -186,7 +183,6 @@ a:hover {
 }
 
 .col-md-6 {
-    -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%;
 }
@@ -198,3 +194,4 @@ a:hover {
     padding-right: 15px;
     padding-left: 15px;
 }
+
