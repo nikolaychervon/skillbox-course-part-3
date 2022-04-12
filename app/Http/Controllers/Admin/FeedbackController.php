@@ -3,11 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Repositories\ContactsRepository;
 use Illuminate\View\View;
 
 class FeedbackController extends Controller
 {
+    /**
+     * @var ContactsRepository
+     */
+    private ContactsRepository $contacts;
+
+    /**
+     * @param ContactsRepository $contacts
+     */
+    public function __construct(ContactsRepository $contacts)
+    {
+        $this->contacts = $contacts;
+    }
+
     /**
      * [Admin] Вернуть щаблон страницы "Список обращений"
      *
@@ -15,6 +28,8 @@ class FeedbackController extends Controller
      */
     public function index(): View
     {
-        return view('admin.pages.feedback.index');
+        return view('admin.pages.feedback.index', [
+            'contacts' => $this->contacts->list()
+        ]);
     }
 }

@@ -2,29 +2,20 @@
 
 namespace App\Http\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Repositories\Traits\HasModelRepositoryTrait;
+use Illuminate\Database\Eloquent\Collection;
 
 abstract class AbstractRepository
 {
-    /**
-     * @var string
-     */
-    protected string $model;
+    use HasModelRepositoryTrait;
 
     /**
-     * @return Builder
+     * Получить список данных с сортировкой по дате
+     *
+     * @return Collection
      */
-    protected function query(): Builder
+    public function list(): Collection
     {
-        $model = new $this->model;
-        if ($model instanceof Model) {
-            return $model::query();
-        }
-
-        $exception = new ModelNotFoundException('Не найдена модель');
-        $exception->setModel($this->model);
-        throw $exception;
+        return $this->query()->latest()->get();
     }
 }

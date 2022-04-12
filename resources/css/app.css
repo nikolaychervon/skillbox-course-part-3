@@ -198,3 +198,7 @@ a:hover {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+.table-contacts tr {
+    height: 80px;
+}
