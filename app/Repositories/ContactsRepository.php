@@ -21,4 +21,15 @@ class ContactsRepository extends AbstractRepository
     {
         return $this->query()->latest()->get();
     }
+
+    /**
+     * Существует ли обращение от пользователя с переданым Email
+     *
+     * @param string $email
+     * @return bool
+     */
+    public function checkByEmail(string $email): bool
+    {
+        return $this->query()->where('email', $email)->exists();
+    }
 }
