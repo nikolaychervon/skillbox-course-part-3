@@ -17,7 +17,7 @@ class ArticlesRepository extends AbstractRepository
      *
      * @return Collection
      */
-    public function list(): Collection
+    public function getPublishedList(): Collection
     {
         return $this->query()->published()->latest()->get();
     }

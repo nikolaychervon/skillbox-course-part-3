@@ -29,7 +29,7 @@ class FeedbackController extends Controller
     public function index(): View
     {
         return view('admin.pages.feedback.index', [
-            'contacts' => $this->contacts->list()
+            'contacts' => $this->contacts->getList()
         ]);
     }
 }

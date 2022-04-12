@@ -39,7 +39,7 @@ class ArticleController extends Controller
      */
     public function index(): View
     {
-        $articles = $this->articles->list();
+        $articles = $this->articles->getPublishedList();
         $popular_article = $articles->shift();
         $last_articles = $articles->shift(2);
 
