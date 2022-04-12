@@ -33,8 +33,11 @@
                 <br>
                 <div class="form-group">
                     <label for="message">Сообщение</label>
-                    <textarea class="form-control" id="message" name="message"
+                    <textarea class="form-control" id="message" name="message" aria-describedby="messageHelp"
                               placeholder="Сообщение">{{ old('message') }}</textarea>
+                    <small id="messageHelp" class="form-text text-muted">
+                        Не более 100 символов.
+                    </small>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Отправить обращение</button>
