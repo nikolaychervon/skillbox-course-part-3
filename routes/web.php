@@ -37,6 +37,7 @@ Route::prefix('/articles')->controller(ArticleController::class)->group(function
 
     /** Детальная страница статьи */
     Route::get('/{article}', 'show')
+        ->middleware('published')
         ->name('show-article');
 });
 

@@ -4,6 +4,7 @@
     </h3>
 
     @if($articles->isEmpty())
+        <p>Статей пока нет :)</p>
     @else
         @foreach($articles as $article)
             @include('site.components.index.post-item')
