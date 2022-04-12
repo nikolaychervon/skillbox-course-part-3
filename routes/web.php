@@ -36,7 +36,7 @@ Route::prefix('/articles')->controller(ArticleController::class)->group(function
         ->name('store-article');
 
     /** Детальная страница статьи */
-    Route::get('/{slug}', 'show')
+    Route::get('/{article}', 'show')
         ->name('show-article');
 });
 

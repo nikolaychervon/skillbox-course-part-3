@@ -6,6 +6,7 @@ use App\Http\DTO\ArticleDTO;
 use App\Http\Repositories\ArticlesRepository;
 use App\Http\Requests\Article\ArticleCreateRequest;
 use App\Http\Services\ArticleService;
+use App\Models\Article;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -38,7 +39,15 @@ class ArticleController extends Controller
      */
     public function index(): View
     {
-        return view('site.pages.index');
+        $articles = $this->articles->list();
+        $popular_article = $articles->shift();
+        $last_articles = $articles->shift(2);
+
+        return view('site.pages.index', [
+            'articles' => $articles,
+            'popular_article' => $popular_article,
+            'last_articles' => $last_articles,
+        ]);
     }
 
     /**
@@ -54,11 +63,12 @@ class ArticleController extends Controller
     /**
      * Вернуть щаблон детальной страницы статьи
      *
+     * @param Article $article
      * @return View
      */
-    public function show(): View
+    public function show(Article $article): View
     {
-        return view('site.pages.articles.show');
+        return view('site.pages.articles.show', ['article' => $article]);
     }
 
     /**

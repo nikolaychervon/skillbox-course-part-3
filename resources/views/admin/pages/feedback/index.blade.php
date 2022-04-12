@@ -9,7 +9,7 @@
             <br>
             <h1>Список обращений</h1>
             <hr>
-            @if(!$contacts->empty())
+            @if($contacts->isEmpty())
                 Обращений пока нет :)
             @else
                 <table class="table table-striped table-contacts">
@@ -23,12 +23,7 @@
                     </thead>
                     <tbody>
                     @foreach($contacts as $id => $contact)
-                        <tr>
-                            <th scope="row">{{ $id }}</th>
-                            <td>{{ $contact->email }}</td>
-                            <td>{{ $contact->message }}</td>
-                            <td>{{ $contact->created_at }}</td>
-                        </tr>
+                        @include('admin.components.feedback.contact-item')
                     @endforeach
                     </tbody>
                 </table>
