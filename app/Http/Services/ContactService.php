@@ -17,7 +17,7 @@ class ContactService
     public function create(ContactDTO $contactDTO): Model|Contact
     {
         return Contact::query()->create([
-            'email' => $contactDTO->email,
+            'email'   => $contactDTO->email,
             'message' => $contactDTO->message
         ]);
     }

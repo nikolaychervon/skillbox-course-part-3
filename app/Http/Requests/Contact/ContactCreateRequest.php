@@ -20,8 +20,8 @@ class ContactCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'     => 'required|email',
-            'message'   => 'required|string|max:100',
+            'email'   => 'required|email',
+            'message' => 'required|string|max:100',
         ];
     }
 }

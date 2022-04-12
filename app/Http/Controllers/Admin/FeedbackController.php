@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repositories\ContactsRepository;
+use App\Repositories\ContactsRepository;
 use Illuminate\View\View;
 
 class FeedbackController extends Controller

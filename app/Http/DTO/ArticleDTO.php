@@ -2,44 +2,52 @@
 
 namespace App\Http\DTO;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 class ArticleDTO
 {
     /**
+     * Символьный номер статьи
+     *
      * @var string
      */
     public string $slug = '';
 
     /**
+     * Название статьи
+     *
      * @var string
      */
     public string $name = '';
 
     /**
+     * Коротное описание статьи
+     *
      * @var string
      */
     public string $short_description = '';
 
     /**
+     * Полное описание статьи
+     *
      * @var string
      */
     public string $content = '';
 
     /**
+     * Флаг, что статья опубликована
+     *
      * @var bool
      */
     public bool $published;
 
     /**
-     * @param FormRequest $request
+     * @param array $data
      */
-    public function __construct(FormRequest $request)
+    public function __construct(array $data)
     {
-        $this->slug              = $request->get('slug');
-        $this->name              = $request->get('name');
-        $this->short_description = $request->get('short_description');
-        $this->content           = $request->get('content');
-        $this->published         = $request->get('published');
+        $this->slug              = $data['slug'];
+        $this->name              = $data['name'];
+        $this->short_description = $data['short_description'];
+        $this->content           = $data['content'];
+        $this->published         = $data['published'];
     }
 }

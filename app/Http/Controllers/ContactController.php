@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTO\ContactDTO;
-use App\Http\Repositories\ContactsRepository;
 use App\Http\Requests\Contact\ContactCreateRequest;
 use App\Http\Services\ContactService;
+use App\Repositories\ContactsRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -49,9 +49,8 @@ class ContactController extends Controller
      */
     public function store(ContactCreateRequest $request): RedirectResponse
     {
-        $this->contactService->create(
-            new ContactDTO($request)
-        );
+        $contactDTO = new ContactDTO($request->all());
+        $this->contactService->create($contactDTO);
 
         session()->flash('message', __('crud.created.contact'));
         return back();

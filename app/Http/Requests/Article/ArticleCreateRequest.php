@@ -30,11 +30,11 @@ class ArticleCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => 'required|alpha_dash|unique:articles',
-            'name' => 'required|string|min:5|max:100',
+            'slug'              => 'required|alpha_dash|unique:articles',
+            'name'              => 'required|string|min:5|max:100',
             'short_description' => 'required|string|max:255',
-            'content' => 'required|string',
-            'published' => 'required|boolean'
+            'content'           => 'required|string',
+            'published'         => 'required|boolean'
         ];
     }
 }

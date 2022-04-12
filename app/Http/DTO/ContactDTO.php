@@ -2,26 +2,28 @@
 
 namespace App\Http\DTO;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 class ContactDTO
 {
     /**
+     * Почта отправителя обращения
+     *
      * @var string
      */
     public string $email = '';
 
     /**
+     * Сообщение обращения
+     *
      * @var string
      */
     public string $message = '';
 
     /**
-     * @param FormRequest $request
+     * @param array $data
      */
-    public function __construct(FormRequest $request)
+    public function __construct(array $data)
     {
-        $this->email = $request->get('email');
-        $this->message = $request->get('message');
+        $this->email   = $data['email'];
+        $this->message = $data['message'];
     }
 }

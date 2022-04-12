@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTO\ArticleDTO;
-use App\Http\Repositories\ArticlesRepository;
 use App\Http\Requests\Article\ArticleCreateRequest;
 use App\Http\Services\ArticleService;
 use App\Models\Article;
+use App\Repositories\ArticlesRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -40,13 +40,11 @@ class ArticleController extends Controller
     public function index(): View
     {
         $articles = $this->articles->getPublishedList();
-        $popular_article = $articles->shift();
-        $last_articles = $articles->shift(2);
 
         return view('site.pages.index', [
             'articles' => $articles,
-            'popular_article' => $popular_article,
-            'last_articles' => $last_articles,
+            'popular_article' => $articles->shift(),
+            'last_articles' => $articles->shift(2),
         ]);
     }
 
@@ -79,9 +77,8 @@ class ArticleController extends Controller
      */
     public function store(ArticleCreateRequest $request): RedirectResponse
     {
-        $this->articleService->create(
-            new ArticleDTO($request)
-        );
+        $articleDTO = new ArticleDTO($request->all());
+        $this->articleService->create($articleDTO);
 
         session()->flash('message', __('crud.created.article'));
         return back();
