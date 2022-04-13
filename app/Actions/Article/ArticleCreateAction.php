@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleCreateAction extends AbstractAction
 {
     /**
-     * Создать обращение
+     * Создать статью
      *
      * @param ArticleDTO $articleDTO
      * @return Model|Article
