@@ -1,5 +1,5 @@
 <div class="row mb-2">
-    @if(!$last_articles->isEmpty())
+    @if(!empty($last_articles))
         @foreach($last_articles as $article)
             <div class="col-md-6" style="height: 300px">
                 <div class="card flex-md-row mb-4 shadow-sm h-md-250" style="height: 100%">

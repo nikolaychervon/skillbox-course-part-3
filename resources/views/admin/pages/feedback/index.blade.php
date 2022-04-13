@@ -9,7 +9,7 @@
             <br>
             <h1>Список обращений</h1>
             <hr>
-            @if($contacts->isEmpty())
+            @if(empty($contacts))
                 Обращений пока нет :)
             @else
                 <table class="table table-striped table-contacts">

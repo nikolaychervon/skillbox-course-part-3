@@ -2,35 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTO\ContactDTO;
+use App\Actions\Contact\ContactCreateAction;
+use App\DTO\ContactDTO;
 use App\Http\Requests\Contact\ContactCreateRequest;
-use App\Http\Services\ContactService;
-use App\Repositories\ContactsRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ContactController extends Controller
 {
-    /**
-     * @var ContactsRepository
-     */
-    private ContactsRepository $contacts;
-
-    /**
-     * @var ContactService
-     */
-    private ContactService $contactService;
-
-    /**
-     * @param ContactsRepository $contacts
-     * @param ContactService $contactService
-     */
-    public function __construct(ContactsRepository $contacts, ContactService $contactService)
-    {
-        $this->contacts = $contacts;
-        $this->contactService = $contactService;
-    }
-
     /**
      * Вернуть щаблон страницы создания обращения
      *
@@ -46,11 +26,12 @@ class ContactController extends Controller
      *
      * @param ContactCreateRequest $request
      * @return RedirectResponse
+     * @throws UnknownProperties
      */
     public function store(ContactCreateRequest $request): RedirectResponse
     {
-        $contactDTO = new ContactDTO($request->all());
-        $this->contactService->create($contactDTO);
+        $contactDTO = new ContactDTO($request->validated());
+        ContactCreateAction::handle($contactDTO);
 
         session()->flash('message', __('crud.created.contact'));
         return back();

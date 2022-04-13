@@ -2,34 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\DTO\ArticleDTO;
+use App\Actions\Article\ArticleCreateAction;
+use App\DTO\ArticleDTO;
 use App\Http\Requests\Article\ArticleCreateRequest;
-use App\Http\Services\ArticleService;
 use App\Models\Article;
-use App\Repositories\ArticlesRepository;
+use App\Presenters\ArticlePresenter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ArticleController extends Controller
 {
     /**
-     * @var ArticlesRepository
+     * @var ArticlePresenter
      */
-    private ArticlesRepository $articles;
+    private ArticlePresenter $presenter;
 
     /**
-     * @var ArticleService
+     * @param ArticlePresenter $presenter
      */
-    private ArticleService $articleService;
-
-    /**
-     * @param ArticlesRepository $articles
-     * @param ArticleService $articleService
-     */
-    public function __construct(ArticlesRepository $articles, ArticleService $articleService)
+    public function __construct(ArticlePresenter $presenter)
     {
-        $this->articles = $articles;
-        $this->articleService = $articleService;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -39,13 +33,9 @@ class ArticleController extends Controller
      */
     public function index(): View
     {
-        $articles = $this->articles->getPublishedList();
-
-        return view('site.pages.index', [
-            'articles' => $articles,
-            'popular_article' => $articles->shift(),
-            'last_articles' => $articles->shift(2),
-        ]);
+        /** articles | popular_article | last_articles */
+        $context = $this->presenter->index();
+        return view('site.pages.index', $context);
     }
 
     /**
@@ -66,7 +56,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article): View
     {
-        return view('site.pages.articles.show', ['article' => $article]);
+        /** article */
+        $context = $this->presenter->show($article);
+        return view('site.pages.articles.show', $context);
     }
 
     /**
@@ -74,11 +66,12 @@ class ArticleController extends Controller
      *
      * @param ArticleCreateRequest $request
      * @return RedirectResponse
+     * @throws UnknownProperties
      */
     public function store(ArticleCreateRequest $request): RedirectResponse
     {
-        $articleDTO = new ArticleDTO($request->all());
-        $this->articleService->create($articleDTO);
+        $articleDTO = new ArticleDTO($request->validated());
+        ArticleCreateAction::handle($articleDTO);
 
         session()->flash('message', __('crud.created.article'));
         return back();

@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class ArticlesSeeder extends Seeder
 {
-    public const COUNT = 10;
+    public const COUNT = 20;
 
     /**
      * Run the database seeds.
