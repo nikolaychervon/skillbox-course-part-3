@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Contact\ContactCreateAction;
+use App\Contracts\Actions\Contact\ContactCreateContract;
 use App\DTO\ContactDTO;
 use App\Http\Requests\Contact\ContactCreateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -18,20 +18,21 @@ class ContactController extends Controller
      */
     public function create(): View
     {
-        return view('site.pages.contacts');
+        return \view('site.pages.contacts');
     }
 
     /**
      * Создать обращение
      *
      * @param ContactCreateRequest $request
+     * @param ContactCreateContract $createAction
      * @return RedirectResponse
      * @throws UnknownProperties
      */
-    public function store(ContactCreateRequest $request): RedirectResponse
+    public function store(ContactCreateRequest $request, ContactCreateContract $createAction): RedirectResponse
     {
         $contactDTO = new ContactDTO($request->validated());
-        ContactCreateAction::handle($contactDTO);
+        $createAction($contactDTO);
 
         session()->flash('message', __('crud.created.contact'));
         return back();

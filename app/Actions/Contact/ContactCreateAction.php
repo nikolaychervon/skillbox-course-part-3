@@ -2,23 +2,19 @@
 
 namespace App\Actions\Contact;
 
-use App\Actions\AbstractAction;
+use App\Contracts\Actions\Contact\ContactCreateContract;
 use App\DTO\ContactDTO;
-use App\Models\Article;
 use App\Models\Contact;
-use Illuminate\Database\Eloquent\Model;
 
-class ContactCreateAction extends AbstractAction
+class ContactCreateAction implements ContactCreateContract
 {
     /**
-     * Создать обращение
-     *
      * @param ContactDTO $contactDTO
-     * @return Model|Article
+     * @return void
      */
-    public static function handle(ContactDTO $contactDTO): Model|Contact
+    public function __invoke(ContactDTO $contactDTO): void
     {
-        return Contact::query()->create([
+        Contact::query()->create([
             'email' => $contactDTO->email,
             'message' => $contactDTO->message
         ]);

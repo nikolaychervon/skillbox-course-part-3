@@ -30,6 +30,6 @@ class FeedbackController extends Controller
     {
         /** contacts */
         $context = $this->presenter->index();
-        return view('admin.pages.feedback.index', $context);
+        return \view('admin.pages.feedback.index', $context);
     }
 }

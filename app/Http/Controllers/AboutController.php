@@ -13,6 +13,6 @@ class AboutController extends Controller
      */
     public function index(): View
     {
-        return view('site.pages.about');
+        return \view('site.pages.about');
     }
 }

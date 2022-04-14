@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Article\ArticleCreateAction;
+use App\Contracts\Actions\Article\ArticleCreateContract;
 use App\DTO\ArticleDTO;
 use App\Http\Requests\Article\ArticleCreateRequest;
 use App\Models\Article;
@@ -35,17 +35,7 @@ class ArticleController extends Controller
     {
         /** articles | popular_article | last_articles */
         $context = $this->presenter->index();
-        return view('site.pages.index', $context);
-    }
-
-    /**
-     * Вернуть щаблон страницы создания статьи
-     *
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('site.pages.articles.create');
+        return \view('site.pages.index', $context);
     }
 
     /**
@@ -58,20 +48,31 @@ class ArticleController extends Controller
     {
         /** article */
         $context = $this->presenter->show($article);
-        return view('site.pages.articles.show', $context);
+        return \view('site.pages.articles.show', $context);
+    }
+
+    /**
+     * Вернуть щаблон страницы создания статьи
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        return \view('site.pages.articles.create');
     }
 
     /**
      * Создать новую статью
      *
      * @param ArticleCreateRequest $request
+     * @param ArticleCreateContract $createAction
      * @return RedirectResponse
      * @throws UnknownProperties
      */
-    public function store(ArticleCreateRequest $request): RedirectResponse
+    public function store(ArticleCreateRequest $request, ArticleCreateContract $createAction): RedirectResponse
     {
         $articleDTO = new ArticleDTO($request->validated());
-        ArticleCreateAction::handle($articleDTO);
+        $createAction($articleDTO);
 
         session()->flash('message', __('crud.created.article'));
         return back();
