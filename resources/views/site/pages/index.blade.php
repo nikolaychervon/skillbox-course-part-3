@@ -4,6 +4,13 @@
 
 @section('content')
 
+    @if (session()->has('message'))
+        <br>
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+    <br>
     @include('site.components.index.main-post')
     @include('site.components.index.last-posts')
 

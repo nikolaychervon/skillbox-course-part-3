@@ -35,20 +35,20 @@ Route::prefix('/articles')->controller(ArticleController::class)->group(function
     Route::post('/', 'store')
         ->name('store-article');
 
-    /** Детальная страница статьи */
-    Route::get('/{article}', 'show')
-        ->middleware('published')
-        ->name('show-article');
-
     /** Изменить статью */
     Route::patch('/{article}', 'update')
         ->middleware('published')
         ->name('update-article');
 
     /** Удалить статью */
-    Route::delete('/{article}', 'show')
+    Route::delete('/{article}', 'destroy')
         ->middleware('published')
-        ->name('delete-article');
+        ->name('destroy-article');
+
+    /** Детальная страница статьи */
+    Route::get('/{article}', 'show')
+        ->middleware('published')
+        ->name('show-article');
 
     /** Страница обновления статьи */
     Route::get('/{article}/edit', 'edit')

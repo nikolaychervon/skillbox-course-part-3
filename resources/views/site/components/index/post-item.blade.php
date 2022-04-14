@@ -1,7 +1,7 @@
 <div class="blog-post">
     <div class="w-100">
         <strong class="d-inline-block" style="float: right; margin-left: 10px;">
-            <form action="{{ route('delete-article', ['article' => $article->slug]) }}" method="POST">
+            <form action="{{ route('destroy-article', ['article' => $article->slug]) }}" method="POST">
                 @method('DELETE')
                 @csrf
                 <button type="submit" class="btn btn-danger">Удалить</button>

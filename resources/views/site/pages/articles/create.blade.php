@@ -9,7 +9,11 @@
             <br>
             <h1>Новая статья</h1>
             <hr>
-            @include('site.components.articles.create-form', ['submit' => 'Создать статью'])
+            @include('site.components.articles.create-form', [
+                'action' => route('store-article'),
+                'method' => 'POST',
+                'submit' => 'Создать статью'
+            ])
         </div>
         @include('site.components.sidebar')
     </div>

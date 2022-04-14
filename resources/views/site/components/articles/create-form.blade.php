@@ -14,7 +14,8 @@
     </div>
 @endif
 
-<form action="{{ route('store-article') }}" method="POST">
+<form action="{{ $action }}" method="POST">
+    @method($method)
     @csrf
     <div class="form-group">
         <label for="slug">Символьный код</label>
@@ -62,7 +63,4 @@
     <br>
 
     <button type="submit" class="btn btn-primary">{{ $submit }}</button>
-    @if(isset($article))
-        <button type="submit" class="btn btn-danger">Удалить</button>
-    @endif
 </form>

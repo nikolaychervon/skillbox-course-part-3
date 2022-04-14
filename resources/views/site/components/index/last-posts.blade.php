@@ -6,7 +6,7 @@
                     <div class="card-body d-flex flex-column align-items-start">
                         <div class="w-100">
                             <strong class="d-inline-block mb-2" style="float: right; margin-left: 10px;">
-                                <form action="{{ route('delete-article', ['article' => $article->slug]) }}"
+                                <form action="{{ route('destroy-article', ['article' => $article->slug]) }}"
                                       method="POST">
                                     @method('DELETE')
                                     @csrf
