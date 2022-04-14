@@ -3,7 +3,7 @@
         Список статей
     </h3>
 
-    @if($articles->isEmpty())
+    @if(empty($articles))
         <p>Статей пока нет :)</p>
     @else
         @foreach($articles as $article)

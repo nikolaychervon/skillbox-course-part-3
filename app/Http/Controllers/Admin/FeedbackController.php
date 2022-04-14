@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\ContactsRepository;
+use App\Presenters\ContactPresenter;
 use Illuminate\View\View;
 
 class FeedbackController extends Controller
 {
     /**
-     * @var ContactsRepository
+     * @var ContactPresenter
      */
-    private ContactsRepository $contacts;
+    private ContactPresenter $presenter;
 
     /**
-     * @param ContactsRepository $contacts
+     * @param ContactPresenter $presenter
      */
-    public function __construct(ContactsRepository $contacts)
+    public function __construct(ContactPresenter $presenter)
     {
-        $this->contacts = $contacts;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -28,8 +28,8 @@ class FeedbackController extends Controller
      */
     public function index(): View
     {
-        return view('admin.pages.feedback.index', [
-            'contacts' => $this->contacts->getList()
-        ]);
+        /** contacts */
+        $context = $this->presenter->index();
+        return \view('admin.pages.feedback.index', $context);
     }
 }

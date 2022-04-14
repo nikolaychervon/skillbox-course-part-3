@@ -11,17 +11,17 @@ class Article extends Model
     use HasFactory;
 
     /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * @return string
      */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
-
-    /**
-     * @var array
-     */
-    protected $guarded = [];
 
     /**
      * @param Builder $query

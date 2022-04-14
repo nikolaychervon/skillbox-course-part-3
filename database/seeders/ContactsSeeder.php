@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class ContactsSeeder extends Seeder
 {
-    public const COUNT = 10;
+    public const COUNT = 20;
 
     /**
      * Run the database seeds.

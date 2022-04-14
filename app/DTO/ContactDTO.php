@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\DTO;
+namespace App\DTO;
 
-class ContactDTO
+use Spatie\DataTransferObject\DataTransferObject;
+
+class ContactDTO extends DataTransferObject
 {
     /**
      * Почта отправителя обращения
@@ -17,13 +19,4 @@ class ContactDTO
      * @var string
      */
     public string $message = '';
-
-    /**
-     * @param array $data
-     */
-    public function __construct(array $data)
-    {
-        $this->email   = $data['email'];
-        $this->message = $data['message'];
-    }
 }
