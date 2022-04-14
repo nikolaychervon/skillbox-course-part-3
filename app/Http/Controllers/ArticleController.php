@@ -52,6 +52,19 @@ class ArticleController extends Controller
     }
 
     /**
+     * Вернуть щаблон страницы обновления статьи
+     *
+     * @param Article $article
+     * @return View
+     */
+    public function edit(Article $article): View
+    {
+        /** article */
+        $context = $this->presenter->edit($article);
+        return \view('site.pages.articles.edit', $context);
+    }
+
+    /**
      * Вернуть щаблон страницы создания статьи
      *
      * @return View

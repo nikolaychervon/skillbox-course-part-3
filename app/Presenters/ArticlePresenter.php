@@ -23,7 +23,7 @@ class ArticlePresenter extends AbstractPresenter
     }
 
     /**
-     * Получить необходимые данные для страницы "Index"
+     * Получить необходимые данные для главной страницы
      *
      * @return array
      */
@@ -42,14 +42,32 @@ class ArticlePresenter extends AbstractPresenter
     }
 
     /**
-     * Получить необходимые данные для страницы "Show"
+     * Получить необходимые данные для детальной страницы статьи
      *
      * @param Article $article
      * @return array
      */
     public function show(Article $article): array
     {
-        $article = new PresenterItem($article, ['name', 'created_at', 'content']);
+        $article = new PresenterItem($article, ['name', 'created_at', 'content', 'slug']);
+        return [
+            'article' => $this->present($article)
+        ];
+    }
+
+    /**
+     * Получить необходимые данные для страницы изменения статьи
+     *
+     * @param Article $article
+     * @return array
+     */
+    public function edit(Article $article): array
+    {
+        $article = new PresenterItem($article, [
+            'name', 'created_at', 'content',
+            'slug', 'published', 'short_description'
+        ]);
+
         return [
             'article' => $this->present($article)
         ];

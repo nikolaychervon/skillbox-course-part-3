@@ -39,6 +39,21 @@ Route::prefix('/articles')->controller(ArticleController::class)->group(function
     Route::get('/{article}', 'show')
         ->middleware('published')
         ->name('show-article');
+
+    /** Изменить статью */
+    Route::patch('/{article}', 'update')
+        ->middleware('published')
+        ->name('update-article');
+
+    /** Удалить статью */
+    Route::delete('/{article}', 'show')
+        ->middleware('published')
+        ->name('delete-article');
+
+    /** Страница обновления статьи */
+    Route::get('/{article}/edit', 'edit')
+        ->middleware('published')
+        ->name('edit-article');
 });
 
 
