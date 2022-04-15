@@ -74,7 +74,7 @@ class ArticlePresenter extends AbstractPresenter
     {
         $article = new PresenterItem($article, [
             'name', 'created_at', 'content',
-            'slug', 'published', 'short_description'
+            'slug', 'published', 'short_description', 'tags_str'
         ]);
 
         return [

@@ -2,12 +2,15 @@
 
 namespace App\Actions\Article;
 
+use App\Actions\Traits\HasTagsSynchronizerTrait;
 use App\Contracts\Actions\Article\ArticleCreateContract;
 use App\DTO\ArticleDTO;
 use App\Models\Article;
 
 class ArticleCreateAction implements ArticleCreateContract
 {
+    use HasTagsSynchronizerTrait;
+
     /**
      * Создать статью
      *
@@ -16,12 +19,12 @@ class ArticleCreateAction implements ArticleCreateContract
      */
     public function __invoke(ArticleDTO $articleDTO): void
     {
-        Article::query()->create([
-            'slug' => $articleDTO->slug,
-            'name' => $articleDTO->name,
-            'short_description' => $articleDTO->short_description,
-            'content' => $articleDTO->content,
-            'published' => $articleDTO->published,
-        ]);
+        /** @var Article $article */
+        $article = Article::query()->create($articleDTO->forTable());
+
+        ($this->tagsSynchronizeAction)(
+            $this->collectTags($articleDTO->tags),
+            $article
+        );
     }
 }

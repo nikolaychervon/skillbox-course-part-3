@@ -34,6 +34,7 @@ class ArticleCreateRequest extends FormRequest
             'name'              => 'required|string|min:5|max:100',
             'short_description' => 'required|string|max:255',
             'content'           => 'required|string',
+            'tags'              => 'string',
             'published'         => 'required|boolean'
         ];
     }
