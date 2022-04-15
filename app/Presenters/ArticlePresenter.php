@@ -15,30 +15,39 @@ class ArticlePresenter extends AbstractPresenter
     private ArticlesRepository $articles;
 
     /**
-     * @param ArticlesRepository $articles
+     * @var TagPresenter
      */
-    public function __construct(ArticlesRepository $articles)
+    private TagPresenter $tagPresenter;
+
+    /**
+     * @param ArticlesRepository $articles
+     * @param TagPresenter $tagPresenter
+     */
+    public function __construct(ArticlesRepository $articles, TagPresenter $tagPresenter)
     {
         $this->articles = $articles;
+        $this->tagPresenter = $tagPresenter;
     }
 
     /**
      * Получить необходимые данные для главной страницы
      *
+     * @param string|null $tag
      * @return array
      */
-    public function index(): array
+    public function index(string $tag = null): array
     {
-        $articles = $this->articles->getPublishedList();
-        $articlesList = new PresenterItem($articles, ['name', 'short_description', 'slug', 'created_at']);
-        $popularArticle = new PresenterItem($articles->shift(), ['name', 'short_description', 'slug']);
-        $lastArticles = new PresenterItem($articles->shift(2), ['name', 'short_description', 'slug', 'created_at']);
+        $articles = $tag ? $this->articles->getByTag($tag) : $this->articles->getPublishedList();
+        $articlesList = new PresenterItem($articles, ['name', 'short_description', 'slug', 'created_at', 'tags']);
+        $popularArticle = new PresenterItem($articles->shift(), ['name', 'short_description', 'slug', 'tags']);
+        $lastArticles = new PresenterItem($articles->shift(2), ['name', 'short_description', 'slug', 'created_at', 'tags']);
 
-        return [
-            'articles' => $this->present($articlesList),
-            'popular_article' => $this->present($popularArticle),
-            'last_articles' => $this->present($lastArticles)
-        ];
+
+        return $this->tagPresenter->index() + [
+                'articles' => $this->present($articlesList),
+                'popular_article' => $this->present($popularArticle),
+                'last_articles' => $this->present($lastArticles),
+            ];
     }
 
     /**

@@ -32,4 +32,18 @@ class ArticlesRepository extends AbstractRepository
     {
         return $this->query()->where('slug', $slug)->exists();
     }
+
+    /**
+     * Получить по тегу
+     *
+     * @param string $tag
+     * @return Collection
+     */
+    public function getByTag(string $tag): Collection
+    {
+        return $this->query()->published()
+            ->whereRelation('tags', 'slug', $tag)
+            ->latest()
+            ->get();
+    }
 }
