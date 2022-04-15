@@ -34,7 +34,7 @@ class ContactController extends Controller
         $contactDTO = new ContactDTO($request->validated());
         $createAction($contactDTO);
 
-        session()->flash('message', __('crud.created.contact'));
+        session()->flash('message', __('notifications.contact.created'));
         return back();
     }
 }
