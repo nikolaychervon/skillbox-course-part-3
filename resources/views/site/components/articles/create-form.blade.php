@@ -55,6 +55,16 @@
     </div>
     <br>
 
+    <div class="form-group">
+        <label for="tags">Теги</label>
+        <input type="text" class="form-control" id="tags" name="tags" aria-describedby="tagsHelp"
+               placeholder="Укажите теги" value="{{ old('tags', $article->tags_str ?? '') }}">
+        <small id="tagsHelp" class="form-text text-muted">
+            Укажите теги через запятую.
+        </small>
+    </div>
+    <br>
+
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="published" name="published"
                @checked(old('published', $article->published ?? ''))>

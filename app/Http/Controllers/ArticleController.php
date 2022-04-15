@@ -11,6 +11,7 @@ use App\Http\Requests\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Presenters\ArticlePresenter;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -32,12 +33,13 @@ class ArticleController extends Controller
     /**
      * Вернуть щаблон главной страницы (Список статей)
      *
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         /** articles | popular_article | last_articles */
-        $context = $this->presenter->index();
+        $context = $this->presenter->index($request->get('tag'));
         return \view('site.pages.index', $context);
     }
 

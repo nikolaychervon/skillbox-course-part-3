@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property bool $published
+ * @property Collection $tags
  */
 class Article extends Model
 {
@@ -17,6 +20,21 @@ class Article extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * @var string[]
+     */
+    protected $appends = [
+        'tags_str'
+    ];
+
+    /**
+     * @return string
+     */
+    public function getTagsStrAttribute(): string
+    {
+        return $this->tags->implode('name', ',');
+    }
 
     /**
      * @return string
@@ -41,5 +59,15 @@ class Article extends Model
     public function isPublished(): bool
     {
         return $this->published;
+    }
+
+    /**
+     * Теги
+     *
+     * @return BelongsToMany
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

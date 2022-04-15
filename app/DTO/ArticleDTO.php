@@ -40,4 +40,19 @@ class ArticleDTO extends DataTransferObject
      * @var bool
      */
     public bool $published;
+
+    /**
+     * Теги (через запятую)
+     *
+     * @var string
+     */
+    public string $tags;
+
+    /**
+     * @return array
+     */
+    public function forTable(): array
+    {
+        return $this->except('tags')->toArray();
+    }
 }

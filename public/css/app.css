@@ -199,3 +199,8 @@ a:hover {
     height: 80px;
 }
 
+.badge-warning {
+    background-color: #dfd70d;
+    color: black;
+}
+
